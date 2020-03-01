@@ -4,12 +4,13 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import Axios from 'axios';
 import ical from 'ical';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Event from './Event';
+//import 'react-big-calendar/lib/css/react-big-calendar.css';
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
 const localizer = momentLocalizer(moment); // or globalizeLocalizer
 
-class Calendar extends Component {
+class Agenda2 extends Component {
   state = { events: [] };
 
   componentDidUpdate() {
@@ -27,14 +28,15 @@ class Calendar extends Component {
     const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
     Axios.get(`${PROXY_URL}${url}`).then(({ data }) => {
       const events = ical.parseICS(data);
+      console.log('events');
       console.log(events);
       const array = Object.keys(events).map(key => {
         const event = events[key];
         if (event.summary) {
           return {
             title: this.isAllDay(event) ? event.summary : `${moment(event.start).format('HH:mm')} - ${event.summary}`,
-            start: moment(event.start).local(),
-            end: event.end ? moment(event.end).local() : null,
+            start: moment(event.start),
+            end: event.end ? moment(event.end) : null,
             location: event.location,
             allDay: this.isAllDay(event),
           };
@@ -44,6 +46,11 @@ class Calendar extends Component {
         events: array,
       });
     });
+  };
+
+  filterEvents = () => {
+    // Current data and time
+    var now = moment();
   };
 
   isAllDay = event => {
@@ -60,21 +67,15 @@ class Calendar extends Component {
 
   render() {
     const { events } = this.state;
+    //console.log('state events');
     console.log(events);
+    const RelevantEvents = events.slice(0, 20);
 
     return (
       <div className="w-100 ">
-        <BigCalendar
-          localizer={localizer}
-          step={10}
-          length={10}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          views={['month']}
-          drilldownView={null}
-          toolbar={false}
-        />
+        {RelevantEvents.map((event, index) => (
+          <Event event={event} />
+        ))}
       </div>
     );
   }
@@ -87,4 +88,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps)(Agenda2);

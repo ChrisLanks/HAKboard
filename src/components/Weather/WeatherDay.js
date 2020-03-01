@@ -8,13 +8,13 @@ class WeatherDay extends Component {
 
     if (!Component) return null;
     return (
-      <div className='d-flex flex-column m-3'>
+      <div className="d-flex flex-column m-3">
         <h5>{day}</h5>
-        <div className='p-2'>
+        <div className="p-2">
           <ReactSVG src={`/assets/icons/${icon}.svg`} />
         </div>
-        <h6 className='m-2'>{maxTemp}°C</h6>
-        <h6 className='m-2'>{minTemp}°C</h6>
+        <h6 className="m-2">{maxTemp}°F</h6>
+        <h6 className="m-2">{minTemp}°F</h6>
       </div>
     );
   }

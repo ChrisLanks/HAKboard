@@ -4,6 +4,7 @@ import moment from 'moment';
 
 class Date extends Component {
   state = { time: null };
+
   componentDidMount = () => {
     const time = moment().format('HH:mm');
     this.setState({ time });
@@ -12,8 +13,8 @@ class Date extends Component {
 
   getNewDate = () => {
     const { day } = this.state;
-    const newday = moment().format('dddd');
-    const newdate = moment().format('MMMM Do');
+    const newday = moment().format('dddd ');
+    const newdate = moment().format(' MMMM D');
     if (day !== newday) this.setState({ day: newday, date: newdate });
     setTimeout(this.getNewDate, 1000 * 60);
   };
@@ -21,12 +22,11 @@ class Date extends Component {
   render() {
     const { day, date } = this.state;
     return (
-      <div className='d-flex flex-column mb-0 align-items-end m-3'>
-        <div className='d-flex flex-row'>
-          <h2 style={{ color: '#fff' }}>{day}</h2>
-        </div>
-        <div className='d-flex flex-row'>
-          <h4 style={{ color: '#fff' }}>{date}</h4>
+      <div className="d-flex flex-column ml-3 mb-0">
+        <div className="d-flex flex-row">
+          <h4 style={{ color: '#fff' }}>
+            <b className="mr-3">{day}</b> {date}
+          </h4>
         </div>
       </div>
     );
@@ -35,7 +35,7 @@ class Date extends Component {
 
 const mapStateToProps = state => {
   return {
-    config: state.config.widgets.clock
+    config: state.config.widgets.clock,
   };
 };
 

@@ -5,17 +5,19 @@ import BackgroundImage from '../components/BackgroundImage';
 import Time from '../components/Time';
 import Date from '../components/Date';
 import Calendar from '../components/Calendar';
+import Agenda from '../components/Agenda';
 import Weather from '../components/Weather';
 import Traffic from '../components/Traffic';
 import Todoist from '../components/Todoist';
+import Rss from '../components/Rss';
 import HomeAssistant from '../components/HomeAssistant';
 import Axios from 'axios';
 import yaml from 'js-yaml';
 import { addConfig } from './actions';
 import './App.css';
 
-const bottomItems = [<Weather />, <Traffic />, <HomeAssistant />];
-// const bottomItems = [<Todoist />];
+const bottomItems = [<Weather />, <Traffic />];
+// const bottomItems = [<Todoist />,  <HomeAssistant />];
 
 class App extends Component {
   state = { activeIndex: 0 };
@@ -25,7 +27,7 @@ class App extends Component {
   loadData = () => {
     this.setState({
       isLoading: true,
-      isLoaded: false
+      isLoaded: false,
     });
 
     //	Load Locked Config
@@ -44,7 +46,7 @@ class App extends Component {
           isLoading: false,
           isLoaded: true,
           hasLoaded: true,
-          isError: false
+          isError: false,
         });
       })
       .catch(error => {
@@ -52,7 +54,7 @@ class App extends Component {
           isLoading: false,
           isLoaded: false,
           isError: true,
-          hasErrored: true
+          hasErrored: true,
         });
         console.error(error);
       });
@@ -75,34 +77,44 @@ class App extends Component {
 
     const slides = bottomItems.map((item, index) => {
       return (
-        <CarouselItem key={index} className='w-100'>
+        <CarouselItem key={index} className="w-100">
           {item}
         </CarouselItem>
       );
     });
 
     return (
-      <div className='App'>
+      <div className="App">
         <BackgroundImage>
-          <div className='d-flex h-100 w-100 flex-column'>
-            <div className='d-flex w-100 flex-row justify-content-between'>
-              <Time />
-              <Date />
+          <div className="d-flex h-100 w-100 flex-column">
+            <div className="d-flex w-100 flex-row justify-content-between">
+              <div className="col-1">
+                <Time />
+                <Date />
+              </div>
             </div>
-            <div className='d-flex w-100 flex-row justify-content-between' style={{ height: '250px' }}>
-              <Calendar />
+            <div className="d-flex w-100 flex-row justify-content-between"></div>
+            <div className="d-flex flex-row justify-content-between mt-5" style={{ marginLeft: '1%', width: '99%' }}>
+              <Agenda />
             </div>
-            <div className='d-flex w-100 flex-row justify-content-between' style={{ height: '250px' }}>
+            <div className="d-flex w-100 flex-row justify-content-between" style={{ height: '250px' }}>
               <Todoist />
             </div>
-            <div className='d-flex flex-row flex-fill flex-grow align-items-end m-3'>
+            <div
+              className="d-flex flex-row justify-content-between"
+              style={{ height: '250px', width: '60%', marginLeft: '20%', marginRight: '20%' }}
+            >
+              <Rss />
+            </div>
+            <div className="d-flex flex-row flex-fill flex-grow align-items-end m-3">
               <Carousel
                 wrap
-                className='w-100'
+                className="w-100"
                 interval={10000}
                 activeIndex={activeIndex}
                 next={this.next}
-                previous={this.previous}>
+                previous={this.previous}
+              >
                 {slides}
               </Carousel>
             </div>
@@ -115,7 +127,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    config: state.config
+    config: state.config,
   };
 };
 
@@ -123,11 +135,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addConfig: config => {
       dispatch(addConfig(config));
-    }
+    },
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

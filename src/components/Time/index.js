@@ -28,11 +28,11 @@ class Time extends Component {
   render() {
     const { time, seconds } = this.state;
     return (
-      <div className='d-flex flex-row m-3'>
-        <div className='d-flex flex-column'>
-          <h1 style={{ color: '#fff' }}>{time}</h1>
+      <div className="d-flex flex-row ml-3 mt-3">
+        <div className="d-flex flex-column">
+          <h1 style={{ color: '#fff', margin: '0px' }}>{time}</h1>
         </div>
-        <div className='d-flex flex-column mt-3'>
+        <div className="d-flex flex-column mt-3">
           <h4 style={{ color: '#fff' }}>{seconds}</h4>
           <h4 style={{ color: '#fff' }}>{moment().format('A')}</h4>
         </div>
@@ -45,17 +45,14 @@ const mapDispatchToProps = dispatch => {
   return {
     refreshView: refresh => {
       dispatch(refreshView(refresh));
-    }
+    },
   };
 };
 
 const mapStateToProps = state => {
   return {
-    config: state.config.widgets.clock
+    config: state.config.widgets.clock,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Time);
+export default connect(mapStateToProps, mapDispatchToProps)(Time);

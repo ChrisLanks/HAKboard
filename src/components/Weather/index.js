@@ -22,7 +22,7 @@ class Weather extends Component {
     if (longitude && latitude) {
       const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
       Axios.get(
-        `${PROXY_URL}https://api.darksky.net/forecast/${weather.dark_sky_secret}/${latitude},${longitude}?exclude=minutely,hourly&lang=en&units=auto`
+        `${PROXY_URL}https://api.darksky.net/forecast/${weather.dark_sky_secret}/${latitude},${longitude}?exclude=minutely,hourly&lang=en&units=us `,
       ).then(({ data }) => {
         this.setState({ data });
       });
@@ -49,12 +49,14 @@ class Weather extends Component {
 
   render() {
     const { data } = this.state;
+    console.log(data);
     if (!data) return null;
     return (
-      <div className='d-flex flex-row justify-content-between w-100' style={{ height: '200px' }}>
-        <div className='d-flex flex-fill flex-grow flex-column m-3 align-items-start'>
+      <div className="d-flex flex-row justify-content-between w-100" style={{ height: '200px' }}>
+        <div className="d-flex flex-fill flex-grow flex-column m-3 align-items-start">
           <h6>{data.currently.summary}</h6>
-          <h2>{data.currently.apparentTemperature.toFixed(1)}°C</h2>
+          <p>Feels Like</p>
+          <h2>{data.currently.apparentTemperature.toFixed(1)}°F</h2>
         </div>
         {[0, 1, 2, 3, 4].map(index => {
           return (
@@ -80,7 +82,7 @@ class Weather extends Component {
 const mapStateToProps = state => {
   return {
     config: state.config,
-    refresh: state.config.refresh
+    refresh: state.config.refresh,
   };
 };
 

@@ -1,0 +1,36 @@
+.rbc-agenda-view {
+   .rbc-calendar {
+      height: unset;
+      margin-left: 3%;
+   }
+  .rbc-header {
+      display: none
+  }
+  .rbc-agenda-date-cell{
+      text-transform: uppercase;
+      display: block;
+      width: 100%
+  }
+  .rbc-agenda-time-cell {
+      display: block;
+      display: table-cell;
+  }
+  .rbc-agenda-event-cell {
+      display: block;
+      display: table-cell;
+  }
+  
+  h4 {
+      text-align: left;
+      margin-top: 5%;
+  }
+  li {
+      text-shadow: 1px 1px 0px rgba(0,0,0,.3);
+      color: #b39ddb;
+  }
+  ul {
+      margin: 0px;
+      font-size: 150%;
+      list-style-type: none;
+  }
+}
