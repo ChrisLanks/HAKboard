@@ -49,17 +49,17 @@ function Agenda() {
             if (event.summary) {
               console.log(event);
               // If not re-ocurring
-              if (event.rrule === 'undefined') {
-                return {
-                  title: event.summary,
-                  start: moment(event.start).local(),
-                  end: event.end ? moment(event.end).local() : null,
-                  location: event.location,
-                  allDay: isAllDay(event),
-                };
-                // Complicated there is a rrule (reoccurance)
-                // https://github.com/peterbraden/ical.js/blob/master/example_rrule.js
-              } else {
+              //  if (event.rrule === 'undefined') {
+              return {
+                title: event.summary,
+                start: moment(event.start).local(),
+                end: event.end ? moment(event.end).local() : null,
+                location: event.location,
+                allDay: isAllDay(event),
+              };
+              // Complicated there is a rrule (reoccurance)
+              // https://github.com/peterbraden/ical.js/blob/master/example_rrule.js
+              /*     } else {
                 // When dealing with calendar recurrences, you need a range of dates to query against,
                 // because otherwise you can get an infinite number of calendar events.
                 //event start
@@ -121,7 +121,7 @@ function Agenda() {
                     console.log();
                   }
                 }
-              }
+              }*/
             }
           });
           //console.log(array);
