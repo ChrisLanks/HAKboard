@@ -61,7 +61,7 @@ class Traffic extends Component {
   render() {
     const { data, extremes } = this.state;
     return (
-      <div className="d-flex flex-row justify-content-between w-100" style={{ height: '200px' }}>
+      <div className="d-flex flex-row justify-content-between w-100" style={{ height: '10%' }}>
         {data ? (
           <div className="d-flex flex-column m-3 align-items-start">
             <h5>Traffic</h5>

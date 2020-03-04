@@ -11,6 +11,7 @@ import Traffic from '../components/Traffic';
 import Todoist from '../components/Todoist';
 import Rss from '../components/Rss';
 import HomeAssistant from '../components/HomeAssistant';
+import Info from '../components/Info';
 import Axios from 'axios';
 import yaml from 'js-yaml';
 import { addConfig } from './actions';
@@ -21,9 +22,12 @@ const bottomItems = [<Weather />, <Traffic />];
 
 class App extends Component {
   state = { activeIndex: 0 };
+
   componentDidMount() {
     this.loadData();
+    this.next();
   }
+
   loadData = () => {
     this.setState({
       isLoading: true,
@@ -88,36 +92,26 @@ class App extends Component {
         <BackgroundImage>
           <div className="d-flex h-100 w-100 flex-column">
             <div className="d-flex w-100 flex-row justify-content-between">
-              <div className="col-1">
+              <div className="col-3">
                 <Time />
                 <Date />
               </div>
             </div>
             <div className="d-flex w-100 flex-row justify-content-between"></div>
-            <div className="d-flex flex-row justify-content-between mt-5" style={{ marginLeft: '1%', width: '99%' }}>
+            <div className="d-flex flex-row justify-content-between mt-3" style={{ marginLeft: '1%', width: '99%' }}>
               <Agenda />
-            </div>
-            <div className="d-flex w-100 flex-row justify-content-between" style={{ height: '250px' }}>
+
+              {/*}  <div className="d-flex w-100 flex-row justify-content-between" style={{ height: '10%' }}>
               <Todoist />
-            </div>
-            <div
-              className="d-flex flex-row justify-content-between"
-              style={{ height: '250px', width: '60%', marginLeft: '20%', marginRight: '20%' }}
-            >
-              <Rss />
-            </div>
-            <div className="d-flex flex-row flex-fill flex-grow align-items-end m-3">
-              <Carousel
-                wrap
-                className="w-100"
-                interval={10000}
-                activeIndex={activeIndex}
-                next={this.next}
-                previous={this.previous}
+    </div> */}
+              <div
+                className="d-flex flex-row justify-content-between"
+                style={{ height: '10%', width: '60%', marginLeft: '5%', marginRight: '20%' }}
               >
-                {slides}
-              </Carousel>
+                <Rss />
+              </div>
             </div>
+            <Info />
           </div>
         </BackgroundImage>
       </div>

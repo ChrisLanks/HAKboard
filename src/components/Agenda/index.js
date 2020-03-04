@@ -155,19 +155,18 @@ function Agenda() {
 
   const numOfDays = 7;
   return (
-    <div>
-      <Calendar
-        events={events}
-        localizer={localizer}
-        defaultView={Views.AGENDA}
-        length={numOfDays}
-        toolbar={false}
-        views={{ agenda: AgendaView }}
-        dayPropGetter={customDayPropGetter}
-        slotPropGetter={customSlotPropGetter}
-        formats={formats}
-      />
-    </div>
+    <Calendar
+      events={events}
+      localizer={localizer}
+      defaultView={Views.AGENDA}
+      length={numOfDays}
+      toolbar={false}
+      views={{ agenda: AgendaView }}
+      dayPropGetter={customDayPropGetter}
+      slotPropGetter={customSlotPropGetter}
+      formats={formats}
+      className={'agenda'}
+    />
   );
 }
 

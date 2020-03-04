@@ -9174,6 +9174,11 @@ react-scripts@3.2.0:
   optionalDependencies:
     fsevents "2.0.7"
 
+react-smooth-marquee@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-smooth-marquee/-/react-smooth-marquee-1.0.0.tgz#b29f8eb7b2fc9fea71ae9ebddb04d42b6e675670"
+  integrity sha1-sp+Ot7L8n+pxrp692wTUK25nVnA=
+
 react-svg@^10.0.23:
   version "10.0.26"
   resolved "https://registry.yarnpkg.com/react-svg/-/react-svg-10.0.26.tgz#c81a30f9ac6e333c65ae5976d5fc72c8533e4de1"

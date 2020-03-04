@@ -4,6 +4,7 @@ import React from 'react';
 import * as dates from './dates';
 import moment from 'moment';
 import { Views, Navigate } from 'react-big-calendar';
+import Marquee from 'react-smooth-marquee';
 
 class AgendaView extends React.Component {
   constructor(props) {
@@ -28,20 +29,6 @@ class AgendaView extends React.Component {
         {events.length !== 0 ? (
           <React.Fragment>
             <div className="rbc-agenda-content">{range.map((day, idx) => this.renderDay(day, events, idx))}</div>
-            {/*<table className="rbc-agenda-table">
-              <thead>
-                <tr>
-                  <th className="rbc-header">{messages.date}</th>
-                  <th className="rbc-header">{messages.time}</th>
-                  <th className="rbc-header">{messages.event}</th>
-                </tr>
-              </thead>
-            </table>
-            <div className="rbc-agenda-content">
-              <table className="rbc-agenda-table">
-                <tbody>{range.map((day, idx) => this.renderDay(day, events, idx))}</tbody>
-              </table>
-        </div> */}
           </React.Fragment>
         ) : (
           <span className="rbc-agenda-empty">{messages.noEventsInRange}</span>
@@ -114,10 +101,18 @@ class AgendaView extends React.Component {
           {first && <h4>{first}</h4>}
           <ul>
             <li>
-              <div className="flex-row">
-                <div className="justify-content-between rbc-agenda-time-cell">{this.timeRangeLabel(day, event)}</div>
-                <div className="justify-content-between rbc-agenda-event-cell">
-                  {Event ? <Event event={event} title={title} /> : title}
+              <div className="flex-row" style={{ width: '100%' }}>
+                <div className="col-sm text-left justify-content-between rbc-agenda-time-cell">
+                  {this.timeRangeLabel(day, event)}
+                </div>
+                <div className="col-sm text-left justify-content-between rbc-agenda-event-cell">
+                  {Event ? (
+                    <Event event={event} title={title} />
+                  ) : title.length > 20 ? (
+                    <Marquee velocity={0.05}>{title}</Marquee>
+                  ) : (
+                    title
+                  )}
                 </div>
               </div>
             </li>

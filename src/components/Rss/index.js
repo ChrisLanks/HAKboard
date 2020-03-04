@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RSSParser from 'rss-parser';
 import { connect } from 'react-redux';
-import { Carousel, CarouselItem } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselControl } from 'reactstrap';
 
 class Rss extends Component {
   state = { activeIndex: 0, items: [] };
@@ -11,6 +11,10 @@ class Rss extends Component {
     const { config } = this.props;
     const { refresh } = this.props;
     const { activeIndex } = this.state;
+  }
+
+  componentDidMount() {
+    this.next();
   }
 
   next = () => {
@@ -56,7 +60,7 @@ class Rss extends Component {
       return (
         <CarouselItem key={index} className="w-100">
           <h2>{item.title}</h2>
-          <h3 style={{ fontSize: '20px' }}>
+          <h3 style={{ fontSize: '1em' }}>
             <a style={{ color: 'lightGray', textDecoration: 'unset' }} href={item.link}>
               {item.contentSnippet}
             </a>
@@ -66,7 +70,18 @@ class Rss extends Component {
     });
 
     return (
-      <Carousel wrap interval={10000} activeIndex={this.state.activeIndex} next={this.next} previous={this.previous}>
+      <Carousel
+        wrap
+        interval={10000}
+        activeIndex={this.state.activeIndex}
+        next={this.next}
+        previous={this.previous}
+        enableTouch={true}
+        keyboard={true}
+        mouseEnter={this.next}
+      >
+        {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />*/}
         {rss}
       </Carousel>
     );

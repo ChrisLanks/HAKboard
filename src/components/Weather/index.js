@@ -52,7 +52,7 @@ class Weather extends Component {
     console.log(data);
     if (!data) return null;
     return (
-      <div className="d-flex flex-row justify-content-between w-100" style={{ height: '200px' }}>
+      <div className="d-flex flex-row justify-content-between w-100" style={{ height: '10%' }}>
         <div className="d-flex flex-fill flex-grow flex-column m-3 align-items-start">
           <h6>{data.currently.summary}</h6>
           <p>Feels Like</p>

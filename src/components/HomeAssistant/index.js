@@ -25,7 +25,7 @@ class HomeAssistant extends Component {
             return {
               entity_id: entity,
               state: state,
-              attributes: atts
+              attributes: atts,
             };
           });
           this.setState({ states: ents });
@@ -40,7 +40,7 @@ class HomeAssistant extends Component {
   render() {
     const { states } = this.state;
     return (
-      <div className='d-flex flex-row flex-wrap justify-content-between w-100' style={{ height: '200px' }}>
+      <div className="d-flex flex-row flex-wrap justify-content-between w-100" style={{ height: '200px' }}>
         {states &&
           states.map((state, index) => {
             if (state.state === 'locked') state.attributes.device_class = 'lock';
@@ -53,15 +53,15 @@ class HomeAssistant extends Component {
             if (state.attributes.unit_of_measurement === 'Wh') state.attributes.device_class = 'flash';
 
             return (
-              <div key={index} className='d-flex flex-row align-items-center col-6'>
-                <div className='d-flex flex-column align-items-center'>
+              <div key={index} className="d-flex flex-row align-items-center col-6">
+                <div className="d-flex flex-column align-items-center">
                   <ReactSVG src={`/assets/icons/${state.attributes.device_class}.svg`} style={{ width: '40px' }} />
                 </div>
-                <div className='d-flex flex-column align-items-start'>
-                  <div className='d-flex flex-row text-left'>
-                    <p className=''>{state.attributes.friendly_name}</p>
+                <div className="d-flex flex-column align-items-start">
+                  <div className="d-flex flex-row text-left">
+                    <p className="">{state.attributes.friendly_name}</p>
                   </div>
-                  <div className='d-flex flex-row'>
+                  <div className="d-flex flex-row">
                     <h4>{`${state.state}`}</h4>
                     <p>{`${state.attributes.unit_of_measurement || ''}`}</p>
                   </div>
@@ -76,7 +76,7 @@ class HomeAssistant extends Component {
 
 const mapStateToProps = state => {
   return {
-    config: state.config.widgets.home_assistant
+    config: state.config.widgets.home_assistant,
   };
 };
 

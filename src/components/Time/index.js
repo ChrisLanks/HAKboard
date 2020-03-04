@@ -28,7 +28,7 @@ class Time extends Component {
   render() {
     const { time, seconds } = this.state;
     return (
-      <div className="d-flex flex-row ml-3 mt-3">
+      <div className="d-flex flex-row mt-3">
         <div className="d-flex flex-column">
           <h1 style={{ color: '#fff', margin: '0px' }}>{time}</h1>
         </div>
