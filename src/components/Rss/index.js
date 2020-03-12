@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 import RSSParser from 'rss-parser';
 import { connect } from 'react-redux';
-import { Carousel, CarouselItem, CarouselControl } from 'reactstrap';
+import { Carousel, CarouselItem } from 'reactstrap';
 
 class Rss extends Component {
   state = { activeIndex: 0, items: [] };
-
-  componentDidUpdate() {
-    const { events } = this.state;
-    const { config } = this.props;
-    const { refresh } = this.props;
-    const { activeIndex } = this.state;
-  }
 
   componentDidMount() {
     this.next();
@@ -82,8 +75,6 @@ class Rss extends Component {
         keyboard={true}
         mouseEnter={this.previous}
       >
-        {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />*/}
         {rss}
       </Carousel>
     );

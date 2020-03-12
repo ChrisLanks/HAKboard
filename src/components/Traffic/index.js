@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Axios from 'axios';
-import moment from 'moment';
 import ReactSVG from 'react-svg';
 import { add, str } from 'timelite/time';
 
@@ -26,7 +25,6 @@ class Traffic extends Component {
       // Convert spaces to %20
       start = start ? encodeURIComponent(start.trim()) : null;
       end = end ? encodeURIComponent(end.trim()) : null;
-      //console.log(dir);
 
       if (start && end) {
         let urlMode = ''; // Defaults to driving
@@ -52,9 +50,9 @@ class Traffic extends Component {
             if (dur.includes('day') || dur.includes('days')) {
               // truncate everything after the pattern & pattern itself, convert to a number
               const numOfDays = parseInt(dur.substr(0, dur.search(/ day(s?) /)), 10);
-              console.log('numOfDays: ' + numOfDays);
+              //console.log('numOfDays: ' + numOfDays);
               days2Hours = numOfDays * 24;
-              console.log('days2Hours: ' + days2Hours);
+              //console.log('days2Hours: ' + days2Hours);
 
               dur = dur.replace(/[0-9]* day(s?) /, '');
             }

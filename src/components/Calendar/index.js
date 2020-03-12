@@ -27,7 +27,7 @@ class Calendar extends Component {
     const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
     Axios.get(`${PROXY_URL}${url}`).then(({ data }) => {
       const events = ical.parseICS(data);
-      console.log(events);
+      //console.log(events);
       const array = Object.keys(events).map(key => {
         const event = events[key];
         if (event.summary) {
@@ -60,7 +60,6 @@ class Calendar extends Component {
 
   render() {
     const { events } = this.state;
-    console.log(events);
 
     return (
       <div className="w-100 ">

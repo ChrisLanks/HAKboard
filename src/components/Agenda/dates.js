@@ -134,6 +134,8 @@ export function total(date, unit) {
       div *= 60;
     case 'seconds':
       div *= 1000;
+    default:
+      div *= 1;
   }
 
   return ms / div;

@@ -15,14 +15,13 @@ class Weather extends Component {
   }
 
   getWeather = () => {
-    const { home = {}, widgets } = this.props.config;
-    const { longitude, latitude } = home;
+    const { widgets } = this.props.config;
     const { weather } = widgets;
 
-    if (longitude && latitude) {
+    if (weather.longitude && weather.latitude) {
       const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
       Axios.get(
-        `${PROXY_URL}https://api.darksky.net/forecast/${weather.dark_sky_secret}/${latitude},${longitude}?exclude=minutely,hourly&lang=en&units=us `,
+        `${PROXY_URL}https://api.darksky.net/forecast/${weather.dark_sky_secret}/${weather.latitude},${weather.longitude}?exclude=minutely,hourly&lang=en&units=us `,
       ).then(({ data }) => {
         this.setState({ data });
       });

@@ -19,7 +19,7 @@ class Todoist extends Component {
     const { todoist = {} } = this.props.config.widgets;
     const { key } = todoist;
     Axios.get(`https://api.todoist.com/rest/v1/tasks`, {
-      headers: { Authorization: `Bearer ${key}` }
+      headers: { Authorization: `Bearer ${key}` },
     }).then(({ data }) => {
       this.setState({ data });
     });
@@ -29,19 +29,19 @@ class Todoist extends Component {
     const { data } = this.state;
     console.log(data);
     return (
-      <div className='d-flex flex-row justify-content-between w-100' style={{ height: '200px' }}>
+      <div className="d-flex flex-row justify-content-between w-100" style={{ height: '200px' }}>
         {data ? (
-          <div className='d-flex flex-column m-3 align-items-start'>
+          <div className="d-flex flex-column m-3 align-items-start">
             <h5>Todoist</h5>
             {data.map(todo => {
               if (todo.project_id !== 2220304310) return;
               return (
-                <div className='d-flex flex-row'>
+                <div className="d-flex flex-row">
                   <ReactSVG
                     src={`/assets/icons/${todo.completed ? 'checkbox-checked' : 'checkbox-blank'}.svg`}
                     style={{ width: '30px' }}
                   />
-                  <h6 className='mt-1'>{todo.content}</h6>
+                  <h6 className="mt-1">{todo.content}</h6>
                 </div>
               );
             })}
@@ -55,7 +55,7 @@ class Todoist extends Component {
 const mapStateToProps = state => {
   return {
     config: state.config,
-    refresh: state.config.refresh
+    refresh: state.config.refresh,
   };
 };
 

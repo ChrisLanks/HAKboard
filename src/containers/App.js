@@ -29,7 +29,7 @@ class App extends Component {
       .then(lockedConfig => {
         const config = yaml.safeLoad(lockedConfig.data);
 
-        console.log(config.config);
+        //console.log(config.config);
 
         this.props.addConfig(config.config);
 
@@ -65,10 +65,7 @@ class App extends Component {
               </div>
             </div>
             <div className="d-flex w-100 flex-row justify-content-between"></div>
-            <div
-              className="d-flex flex-row justify-content-between mt-3 agenda-dev"
-              style={{ marginLeft: '1%', width: '99%' }}
-            >
+            <div className="d-flex flex-row justify-content-between mt-3 agenda-dev">
               <Agenda />
               <div
                 className="d-flex flex-row justify-content-between"
