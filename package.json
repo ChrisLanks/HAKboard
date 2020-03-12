@@ -24,7 +24,6 @@
     "react-svg": "^10.0.23",
     "reactstrap": "^8.1.1",
     "redux": "^4.0.4",
-    "rrule": "^2.6.4",
     "rss-parser": "^3.7.5"
   },
   "scripts": {
@@ -49,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^3.5.0"
+    "cypress": "^3.5.0",
+    "timelite": "^1.0.0"
   }
 }

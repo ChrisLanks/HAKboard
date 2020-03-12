@@ -2,6 +2,11 @@
    .rbc-calendar {
       height: unset;
       margin-left: 3%;
+      text-overflow: ellipsis;
+
+      /* Required for text-overflow to do anything */
+      white-space: nowrap;
+      overflow: hidden;
    }
   .rbc-header {
       display: none
@@ -11,6 +16,7 @@
       //display: block;
       width: 100%;
       padding-top: 3%;
+
   }
   .rbc-agenda-time-cell {
       //display: table-cell;

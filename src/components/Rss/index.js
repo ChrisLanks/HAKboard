@@ -30,15 +30,17 @@ class Rss extends Component {
   };
 
   getRSSfeeds = () => {
+    if (this.props.config === undefined) {
+      return;
+    }
     let parser = new RSSParser();
     const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-    // TODO make config var
-    const feed_url = 'https://www.goodnewsnetwork.org/category/news/feed/';
+    const { url } = this.props.config;
 
-    if (feed_url && this.state.items.length <= 0) {
+    if (url && this.state.items.length <= 0) {
       (async () => {
         try {
-          let feed = await parser.parseURL(PROXY_URL + feed_url);
+          let feed = await parser.parseURL(PROXY_URL + url);
           this.setState({
             items: feed.items,
           });
@@ -55,7 +57,7 @@ class Rss extends Component {
   render() {
     this.getRSSfeeds();
     const { items } = this.state;
-    console.log(items);
+    //console.log(items);
     const rss = items.map((item, index) => {
       return (
         <CarouselItem key={index} className="w-100">
@@ -78,7 +80,7 @@ class Rss extends Component {
         previous={this.previous}
         enableTouch={true}
         keyboard={true}
-        mouseEnter={this.next}
+        mouseEnter={this.previous}
       >
         {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
         <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />*/}

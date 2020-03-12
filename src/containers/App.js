@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Carousel, CarouselItem } from 'reactstrap';
 import BackgroundImage from '../components/BackgroundImage';
 import Time from '../components/Time';
 import Date from '../components/Date';
-import Calendar from '../components/Calendar';
 import Agenda from '../components/Agenda';
-import Weather from '../components/Weather';
-import Traffic from '../components/Traffic';
-import Todoist from '../components/Todoist';
 import Rss from '../components/Rss';
 import HomeAssistant from '../components/HomeAssistant';
 import Info from '../components/Info';
@@ -17,15 +12,9 @@ import yaml from 'js-yaml';
 import { addConfig } from './actions';
 import './App.css';
 
-const bottomItems = [<Weather />, <Traffic />];
-// const bottomItems = [<Todoist />,  <HomeAssistant />];
-
 class App extends Component {
-  state = { activeIndex: 0 };
-
   componentDidMount() {
     this.loadData();
-    this.next();
   }
 
   loadData = () => {
@@ -64,29 +53,7 @@ class App extends Component {
       });
   };
 
-  next = () => {
-    const { activeIndex } = this.state;
-    const nextIndex = activeIndex === bottomItems.length - 1 ? 0 : activeIndex + 1;
-    this.setState({ activeIndex: nextIndex });
-  };
-
-  previous = () => {
-    const { activeIndex } = this.state;
-    const nextIndex = activeIndex === 0 ? bottomItems.length - 1 : activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
-  };
-
   render() {
-    const { activeIndex } = this.state;
-
-    const slides = bottomItems.map((item, index) => {
-      return (
-        <CarouselItem key={index} className="w-100">
-          {item}
-        </CarouselItem>
-      );
-    });
-
     return (
       <div className="App">
         <BackgroundImage>
@@ -98,12 +65,11 @@ class App extends Component {
               </div>
             </div>
             <div className="d-flex w-100 flex-row justify-content-between"></div>
-            <div className="d-flex flex-row justify-content-between mt-3" style={{ marginLeft: '1%', width: '99%' }}>
+            <div
+              className="d-flex flex-row justify-content-between mt-3 agenda-dev"
+              style={{ marginLeft: '1%', width: '99%' }}
+            >
               <Agenda />
-
-              {/*}  <div className="d-flex w-100 flex-row justify-content-between" style={{ height: '10%' }}>
-              <Todoist />
-    </div> */}
               <div
                 className="d-flex flex-row justify-content-between"
                 style={{ height: '10%', width: '60%', marginLeft: '5%', marginRight: '20%' }}

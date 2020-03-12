@@ -97,7 +97,17 @@ div {
 }
 .marquee {
   position: relative;
+  
 }
 .rbc-agenda-view {
   overflow: hidden !important;
+}
+
+.agenda-dev {
+  margin-left: 1%;
+  width: 99%;
+  overflow: hidden; 
+  height: 50%;  
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }

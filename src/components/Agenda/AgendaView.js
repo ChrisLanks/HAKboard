@@ -13,6 +13,7 @@ class AgendaView extends React.Component {
 
   render() {
     let { length, date, events, accessors, localizer } = this.props;
+
     let { messages } = localizer;
     let end = dates.add(date, length, 'day');
 
@@ -20,8 +21,8 @@ class AgendaView extends React.Component {
     const dateWithoutTime = moment(date)
       .local()
       .format('L');
-    events = events.filter(event => this.inRange(event, dateWithoutTime, end, accessors));
 
+    events = events.filter(event => this.inRange(event, dateWithoutTime, end, accessors));
     events.sort((a, b) => +accessors.start(a) - +accessors.start(b));
 
     return (
@@ -43,7 +44,8 @@ class AgendaView extends React.Component {
   };
 
   inRange = (e, start, end, accessors) => {
-    let eStart = dates.startOf(accessors.start(e), 'day');
+    let eStart = e !== undefined && e.start && e.start.startOf('day');
+    if (eStart === undefined) return false;
     let eEnd = accessors.end(e);
 
     let startsBeforeEnd = dates.lte(eStart, end, 'day');
@@ -51,7 +53,6 @@ class AgendaView extends React.Component {
     let endsAfterStart = !dates.eq(eStart, eEnd, 'minutes')
       ? dates.gt(eEnd, start, 'minutes')
       : dates.gte(eEnd, start, 'minutes');
-
     return startsBeforeEnd && endsAfterStart;
   };
 
@@ -89,9 +90,9 @@ class AgendaView extends React.Component {
       }
       let first =
         idx === 0 ? (
-          <td rowSpan={events.length} className="rbc-agenda-date-cell">
+          <div rowSpan={events.length} className="rbc-agenda-date-cell">
             {AgendaDate ? <AgendaDate day={day} label={dateLabel} /> : dateLabel}
-          </td>
+          </div>
         ) : (
           false
         );
@@ -155,40 +156,6 @@ class AgendaView extends React.Component {
     );
   };
 }
-
-/*
-  timeRangeLabel = (day, event) => {
-    let { accessors, localizer, components } = this.props;
-
-    let labelClass = '',
-      TimeComponent = components.time,
-      label = localizer.messages.allDay;
-
-    let end = accessors.end(event);
-    let start = accessors.start(event);
-
-    if (!accessors.allDay(event)) {
-      if (dates.eq(start, end)) {
-        label = localizer.format(start, 'agendaTimeFormat');
-      } else if (dates.eq(start, end, 'day')) {
-        label = localizer.format({ start, end }, 'agendaTimeRangeFormat');
-      } else if (dates.eq(day, start, 'day')) {
-        label = localizer.format(start, 'agendaTimeFormat');
-      } else if (dates.eq(day, end, 'day')) {
-        label = localizer.format(end, 'agendaTimeFormat');
-      }
-    }
-
-    if (dates.gt(day, start, 'day')) labelClass = 'rbc-continues-prior';
-    if (dates.lt(day, end, 'day')) labelClass += ' rbc-continues-after';
-
-    return (
-      <span className={labelClass.trim()}>
-        {TimeComponent ? <TimeComponent event={event} day={day} label={label} /> : label}
-      </span>
-    );
-  };
-}*/
 
 AgendaView.propTypes = {
   events: PropTypes.array,
