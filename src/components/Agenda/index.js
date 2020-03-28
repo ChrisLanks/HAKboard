@@ -6,7 +6,6 @@ import axios from 'axios';
 import ical from 'ical';
 import './index.scss';
 import AgendaView from './AgendaView.js';
-import { RRule, RRuleSet, rrulestr } from 'rrule';
 
 const customDayPropGetter = date => {
   if (date.getDate() === 7 || date.getDate() === 15)
@@ -51,9 +50,13 @@ function Agenda(props) {
               //console.log(event);
               // If not re-ocurring
               if (event.rrule === undefined) {
+                console.log(event);
+                console.log(moment(event.start));
+                console.log(moment(event.start).local());
                 return {
                   title: event.summary,
                   start: moment(event.start).local(),
+                  start2: moment(event.start),
                   end: event.end ? moment(event.end).local() : null,
                   location: event.location,
                   allDay: isAllDay(event),
@@ -132,9 +135,10 @@ function Agenda(props) {
               }
             }
           });
-
+          console.log(array);
           // Loop through entire array of objects and append arrays as objects to end.
           array.forEach(function(eventsRange, index) {
+            //console.log(eventsRange);
             if (Array.isArray(eventsRange)) {
               for (let i = eventsRange.length - 1; i >= 0; i--) {
                 array.push(eventsRange[i]);
@@ -143,6 +147,7 @@ function Agenda(props) {
           });
           // Clean up arrays that weren't removed for some reason
           array = array.filter(e => e && e.title !== undefined);
+          //console.log(array);
           setEvents(array);
         });
       } catch (e) {

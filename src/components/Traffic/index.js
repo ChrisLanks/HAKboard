@@ -11,6 +11,11 @@ class Traffic extends Component {
     const { refresh } = this.props;
     if (!(distance || duration) || refresh) {
       console.log('REFRESHING: ', refresh);
+      if (refresh) {
+        //this.setState({ duration: null });
+        //this.setState({ distance: null });
+        //this.setState({ refresh: false });
+      }
       this.fetchTimeToWork();
     }
   }
@@ -20,7 +25,7 @@ class Traffic extends Component {
     const { traffic = {} } = widgets;
     const { google_traffic_api_key: apiKey } = traffic;
 
-    for (var dir of directions) {
+    for (let dir of directions) {
       let { start, end, mode } = dir;
       // Convert spaces to %20
       start = start ? encodeURIComponent(start.trim()) : null;
@@ -103,9 +108,14 @@ class Traffic extends Component {
     let min = durArr[1];
     if (durArr[0] === '01') {
       hourLabel = 'hour';
-      hour = hour.substring(1);
     } else if (durArr[1] === '01') {
       minLabel = 'minute';
+    }
+    // fix starting with 0
+    if (durArr[0].startsWith('0')) {
+      hour = hour.substring(1);
+    }
+    if (durArr[1].startsWith('0')) {
       min = min.substring(1);
     }
 

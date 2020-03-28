@@ -58,7 +58,7 @@ class Weather extends Component {
           <h2>{data.currently.apparentTemperature.toFixed(1)}°F</h2>
         </div>
         {[0, 1, 2, 3, 4].map(index => {
-          return (
+          return this.getIcon(index) !== undefined ? (
             <WeatherDay
               day={
                 index !== 0
@@ -71,6 +71,8 @@ class Weather extends Component {
               maxTemp={this.getMaxTemp(index)}
               minTemp={this.getMinTemp(index)}
             />
+          ) : (
+            <p>Unknown</p>
           );
         })}
       </div>
