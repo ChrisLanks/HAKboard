@@ -44,8 +44,7 @@ class AgendaView extends React.Component {
   };
 
   inRange = (e, start, end, accessors) => {
-    let eStart = e !== undefined && e.start && e.start.startOf('day');
-    if (eStart === undefined) return false;
+    let eStart = dates.startOf(accessors.start(e), 'day');
     let eEnd = accessors.end(e);
 
     let startsBeforeEnd = dates.lte(eStart, end, 'day');

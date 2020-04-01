@@ -50,13 +50,10 @@ function Agenda(props) {
               //console.log(event);
               // If not re-ocurring
               if (event.rrule === undefined) {
-                console.log(event);
-                console.log(moment(event.start));
-                console.log(moment(event.start).local());
+                //console.log(event);
                 return {
                   title: event.summary,
                   start: moment(event.start).local(),
-                  start2: moment(event.start),
                   end: event.end ? moment(event.end).local() : null,
                   location: event.location,
                   allDay: isAllDay(event),
@@ -106,7 +103,7 @@ function Agenda(props) {
                     curDuration = parseInt(moment(curEvent.end).format('x')) - parseInt(startDate.format('x'));
                   }
                   // If there's no recurrence override, check for an exception date.  Exception dates represent exceptions to the rule.
-                  else if (curEvent.exdate != undefined && curEvent.exdate[dateLookupKey] !== undefined) {
+                  else if (curEvent.exdate !== undefined && curEvent.exdate[dateLookupKey] !== undefined) {
                     // This date is an exception date, which means we should skip it in the recurrence pattern.
                     showRecurrence = false;
                   }
@@ -135,7 +132,7 @@ function Agenda(props) {
               }
             }
           });
-          console.log(array);
+          //console.log(array);
           // Loop through entire array of objects and append arrays as objects to end.
           array.forEach(function(eventsRange, index) {
             //console.log(eventsRange);
