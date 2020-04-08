@@ -28,3 +28,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+## Pictures
+
+![Image 1](pix/2020-04-08-011515_1280x800_scrot.png?raw=true)
+
+![Image 2](pix/2020-04-08-011619_1280x800_scrot.png?raw=true)
+
+![Image 3](pix/2020-04-08-011817_1280x800_scrot.png?raw=true)
+

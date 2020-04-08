@@ -11,7 +11,7 @@ if [ $STATUS = "on" ]; then
 	fbset -g 1280 800 1280 800 32
 
 	# Needs to fake a mouse click
-	DISPLAY=:0 xdotool click 1
+	DISPLAY=:0 /usr/bin/xdotool click 1
 
 elif [ $STATUS = "off" ]; then
 	/opt/vc/bin/tvservice -o
