@@ -1,0 +1,8 @@
+## Install neceassary packages (rapbian)
+apt install git npm unclutter -y
+
+## Add the crontab
+crontab -e
+
+## Edit the startup to not display the mouse, go to sleep, and start the browser on boot
+vim autostart

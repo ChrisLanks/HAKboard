@@ -5,26 +5,23 @@ import ReactSVG from 'react-svg';
 import { add, str } from 'timelite/time';
 
 class Traffic extends Component {
-  state = { distance: null, duration: null, extremes: null };
-  componentDidUpdate() {
-    const { distance, duration } = this.state;
+  state = { distance: null, duration: null, reset: false };
+
+  componentDidUpdate(prevProps) {
     const { refresh } = this.props;
-    if (!(distance || duration) || refresh) {
+    if (prevProps.config !== this.props.config || refresh) {
       console.log('REFRESHING: ', refresh);
-      if (refresh) {
-        //this.setState({ duration: null });
-        //this.setState({ distance: null });
-        //this.setState({ refresh: false });
-      }
       this.fetchTimeToWork();
     }
   }
 
-  fetchTimeToWork = () => {
+  async fetchTimeToWork() {
     const { directions = [{}], widgets = [] } = this.props.config;
     const { traffic = {} } = widgets;
     const { google_traffic_api_key: apiKey } = traffic;
 
+    let combinedDur = '00:00:00';
+    let combinedMiles = 0;
     for (let dir of directions) {
       let { start, end, mode } = dir;
       // Convert spaces to %20
@@ -43,10 +40,10 @@ class Traffic extends Component {
         console.log(
           `${PROXY_URL}https://maps.googleapis.com/maps/api/distancematrix/json?origins=${start}&destinations=${end}&key=${apiKey}&units=imperial${urlMode}`,
         );
-        Axios.get(
+        const { dur, numInMiles } = await Axios.get(
           `${PROXY_URL}https://maps.googleapis.com/maps/api/distancematrix/json?origins=${start}&destinations=${end}&key=${apiKey}&units=imperial${urlMode}`,
         ).then(({ data }) => {
-          console.log(data);
+          //console.log(data);
           if (data.status === 'OK') {
             // Duration Traveling
             let dur = data.rows[0].elements[0].duration.text;
@@ -73,8 +70,6 @@ class Traffic extends Component {
             if (days2Hours !== null) {
               dur = str(add([dur, `${days2Hours}:00:00`]));
             }
-            const combinedDur = this.state.duration ? str(add([this.state.duration, dur])) : dur;
-            this.setState({ duration: combinedDur });
 
             // Distance Traveling //
             let dist = data.rows[0].elements[0].distance.text;
@@ -84,20 +79,24 @@ class Traffic extends Component {
             if (dist.includes(' ft') || dist.includes('feet')) {
               // truncate everything after the pattern & pattern itself, convert to a number
               const numOfFeet = parseFloat(dist.substr(0, dist.search(/ ft/)));
-              console.log('numOfFeet: ' + numOfFeet);
+              //console.log('numOfFeet: ' + numOfFeet);
               numInMiles = numOfFeet * 0.000189394; // 1 foot in a mile is that decimal in miles
-              console.log('numInMiles: ' + numInMiles);
+              //console.log('numInMiles: ' + numInMiles);
             } else {
               // miles
               numInMiles = parseFloat(dist.replace(/ mi/, ''));
             }
-            const combinedMiles = this.state.distance + numInMiles;
-            this.setState({ distance: combinedMiles });
+
+            return { dur: dur, numInMiles: numInMiles };
           }
         });
+        combinedDur = str(add([combinedDur, dur]));
+        combinedMiles += numInMiles;
       }
     }
-  };
+    this.setState({ duration: combinedDur });
+    this.setState({ distance: combinedMiles });
+  }
 
   formatDurationNicely = () => {
     const { duration } = this.state;
@@ -133,14 +132,14 @@ class Traffic extends Component {
             <ReactSVG src={`/assets/icons/${'map'}.svg`} style={{ width: '30px' }} />
             <h3 className="ml-3">{duration ? this.formatDurationNicely() : 'Unsure'}</h3>
           </div>
-          <h6>{distance ? distance : 'Unsure'}</h6>
+          <h6>{distance ? distance + ' Miles' : 'Unsure'}</h6>
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     config: state.config,
     refresh: state.config.refresh,

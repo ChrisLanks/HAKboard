@@ -14,7 +14,6 @@
     "moment": "^2.24.0",
     "nightmare": "^3.0.2",
     "node-sass": "^4.13.1",
-    "puppeteer": "^2.1.1",
     "react": "^16.11.0",
     "react-big-calendar": "^0.22.1",
     "react-dom": "^16.11.0",

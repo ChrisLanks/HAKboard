@@ -47,6 +47,11 @@ class Rss extends Component {
     }
   };
 
+  newWindow = (link) => {
+    window.open(link, 'newwindow', 'width=1000%,height=650%');
+    return false;
+  };
+
   render() {
     this.getRSSfeeds();
     const { items } = this.state;
@@ -56,7 +61,7 @@ class Rss extends Component {
         <CarouselItem key={index} className="w-100">
           <h2>{item.title}</h2>
           <h3 style={{ fontSize: '1em' }}>
-            <a style={{ color: 'lightGray', textDecoration: 'unset' }} href={item.link}>
+            <a onClick={() => this.newWindow(item.link)} style={{ color: 'lightGray', textDecoration: 'unset' }}>
               {item.contentSnippet}
             </a>
           </h3>
@@ -81,7 +86,7 @@ class Rss extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     config: state.config.widgets.rss,
     refresh: state.config.refresh,

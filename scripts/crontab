@@ -1,0 +1,12 @@
+# crontab for pi user
+# Turn the screen on 7am everyday
+0 7 * * * /home/pi/Downloads/HAKboard/scripts/screen.sh on
+# Turn the screen off every night
+0 1 * * * /home/pi/Downloads/HAKboard/scripts/screen.sh off
+
+# Turn off screen on weekday mon-fri
+30 10 * * 1-5 /home/pi/Downloads/HAKboard/scripts/screen.sh off
+
+# Turn on screen mon-fri
+0 15 * * 1-5 /home/pi/Downloads/HAKboard/scripts/screen.sh on
+

@@ -1,0 +1,10 @@
+#/etc/xdg/lxsession/LXDE-pi/autostart
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+@xscreensaver -no-splash
+unclutter -idle 0
+@xset s off
+@xset s -dpms
+sleep 60
+chromium-browser --start-fullscreen http://localhost:3000
+
