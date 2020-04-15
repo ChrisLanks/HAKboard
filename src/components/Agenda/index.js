@@ -7,7 +7,7 @@ import ical from 'ical';
 import './index.scss';
 import AgendaView from './AgendaView.js';
 
-const customDayPropGetter = date => {
+const customDayPropGetter = (date) => {
   if (date.getDate() === 7 || date.getDate() === 15)
     return {
       className: 'special-day',
@@ -18,7 +18,7 @@ const customDayPropGetter = date => {
   else return {};
 };
 
-const customSlotPropGetter = date => {
+const customSlotPropGetter = (date) => {
   if (date.getDate() === 7 || date.getDate() === 15)
     return {
       className: 'special-day',
@@ -44,7 +44,7 @@ function Agenda(props) {
       try {
         await axios.get(`${PROXY_URL}${url}`).then(({ data }) => {
           const allEvents = ical.parseICS(data);
-          let array = Object.keys(allEvents).map(key => {
+          let array = Object.keys(allEvents).map((key) => {
             const event = allEvents[key];
             if (event.summary) {
               //console.log(event);
@@ -68,15 +68,13 @@ function Agenda(props) {
                 //event start
                 const rangeStart = moment(event.start).local();
                 // until 7 days after today
-                const rangeEnd = moment()
-                  .add(7, 'days')
-                  .local();
+                const rangeEnd = moment().add(7, 'days').local();
 
                 let startDate = moment(event.start);
                 let endDate = moment(event.end);
                 // For recurring events, get the set of event start dates that fall within the range
                 // of dates we're looking for.
-                const dates = event.rrule.between(rangeStart.toDate(), rangeEnd.toDate(), true, function(date, i) {
+                const dates = event.rrule.between(rangeStart.toDate(), rangeEnd.toDate(), true, function (date, i) {
                   return true;
                 });
 
@@ -96,7 +94,7 @@ function Agenda(props) {
                   const dateLookupKey = date.toISOString().substring(0, 10);
 
                   // For each date that we're checking, it's possible that there is a recurrence override for that one day.
-                  if (curEvent.recurrences != undefined && curEvent.recurrences[dateLookupKey] !== undefined) {
+                  if (curEvent.recurrences !== undefined && curEvent.recurrences[dateLookupKey] !== undefined) {
                     // We found an override, so for this recurrence, use a potentially different title, start date, and duration.
                     curEvent = curEvent.recurrences[dateLookupKey];
                     startDate = moment(curEvent.start).local();
@@ -134,7 +132,7 @@ function Agenda(props) {
           });
           //console.log(array);
           // Loop through entire array of objects and append arrays as objects to end.
-          array.forEach(function(eventsRange, index) {
+          array.forEach(function (eventsRange, index) {
             //console.log(eventsRange);
             if (Array.isArray(eventsRange)) {
               for (let i = eventsRange.length - 1; i >= 0; i--) {
@@ -143,7 +141,7 @@ function Agenda(props) {
             }
           });
           // Clean up arrays that weren't removed for some reason
-          array = array.filter(e => e && e.title !== undefined);
+          array = array.filter((e) => e && e.title !== undefined);
           //console.log(array);
           setEvents(array);
         });
@@ -154,20 +152,15 @@ function Agenda(props) {
     fetchCal();
   }, [props]);
 
-  const isAllDay = event => {
+  const isAllDay = (event) => {
     if (event.rrule !== undefined) {
       return false;
     }
     const a = moment(event.start).local();
-    const b = moment(event.start)
-      .startOf('day')
-      .local();
+    const b = moment(event.start).startOf('day').local();
 
     const c = moment(event.end).local();
-    const d = moment(event.start)
-      .add(1, 'days')
-      .startOf('day')
-      .local();
+    const d = moment(event.start).add(1, 'days').startOf('day').local();
 
     return a.isSame(b) && c.isSame(d);
   };
@@ -194,7 +187,7 @@ function Agenda(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     config: state.config.widgets.calendar,
     refresh: state.config.refresh,

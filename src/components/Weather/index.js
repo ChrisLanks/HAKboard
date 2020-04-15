@@ -64,6 +64,7 @@ class Weather extends Component {
               icon={this.getIcon(index)}
               maxTemp={this.getMaxTemp(index)}
               minTemp={this.getMinTemp(index)}
+              key={index}
             />
           ) : (
             <p>Unknown</p>

@@ -3,14 +3,10 @@ import React from 'react';
 
 import * as dates from './dates';
 import moment from 'moment';
-import { Views, Navigate } from 'react-big-calendar';
+import { Navigate } from 'react-big-calendar';
 import Marquee from 'react-smooth-marquee';
 
 class AgendaView extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let { length, date, events, accessors, localizer } = this.props;
 
@@ -18,11 +14,9 @@ class AgendaView extends React.Component {
     let end = dates.add(date, length, 'day');
 
     let range = dates.range(date, end, 'day');
-    const dateWithoutTime = moment(date)
-      .local()
-      .format('L');
+    const dateWithoutTime = moment(date).local().format('L');
 
-    events = events.filter(event => this.inRange(event, dateWithoutTime, end, accessors));
+    events = events.filter((event) => this.inRange(event, dateWithoutTime, end, accessors));
     events.sort((a, b) => +accessors.start(a) - +accessors.start(b));
 
     return (
@@ -64,7 +58,7 @@ class AgendaView extends React.Component {
       components: { event: Event, date: AgendaDate },
     } = this.props;
 
-    events = events.filter(e => this.inRange(e, dates.startOf(day, 'day'), dates.endOf(day, 'day'), accessors));
+    events = events.filter((e) => this.inRange(e, dates.startOf(day, 'day'), dates.endOf(day, 'day'), accessors));
 
     return events.map((event, idx) => {
       let title = accessors.title(event);
@@ -75,9 +69,7 @@ class AgendaView extends React.Component {
 
       // Nice Formats to see
       const today = moment().format('L');
-      const tomorrow = moment()
-        .add(1, 'days')
-        .format('L');
+      const tomorrow = moment().add(1, 'days').format('L');
       const someDay = moment(day).format('L');
       let dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat');
       if (idx === 0) {

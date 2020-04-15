@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Axios from 'axios';
-import moment from 'moment';
 import ReactSVG from 'react-svg';
 
 class Todoist extends Component {
@@ -33,7 +32,7 @@ class Todoist extends Component {
         {data ? (
           <div className="d-flex flex-column m-3 align-items-start">
             <h5>Todoist</h5>
-            {data.map(todo => {
+            {data.map((todo) => {
               if (todo.project_id !== 2220304310) return;
               return (
                 <div className="d-flex flex-row">
@@ -52,7 +51,7 @@ class Todoist extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     config: state.config,
     refresh: state.config.refresh,
