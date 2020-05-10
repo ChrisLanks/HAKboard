@@ -1,8 +1,15 @@
 ## Install neceassary packages (rapbian)
-apt install git npm unclutter -y
+apt install tmux git curl vim unclutter npm xdotool matchbox-keyboard -y
 
 ## Add the crontab
 crontab -e
 
+# Enable HAKboard ot start on boot. Paste into /etc/rc.local before exit 0 NOT AFTER
+# run HAKboard
+cd /home/pi/Downloads/HAKboard && yarn start
+
 ## Edit the startup to not display the mouse, go to sleep, and start the browser on boot
 vim autostart
+
+# on screen keyboard for troubleshooting remotely
+DISPLAY=:0 matchbox-keyboard &
