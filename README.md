@@ -21,6 +21,10 @@ It should install everything you need.
 
 Copy the sample config and fill it in. 
 
+### `vim /etc/chromium-browser/default` \# Add this to the chromium flags `--disable-session-crashed-bubble`
+
+Fix the annoying chromium has crashed/restore browser sessions popup on reboot
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />
