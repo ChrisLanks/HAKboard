@@ -33,6 +33,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
+
+You may also run into issues where the screen locks up over a period of ~3 days. If this happens, try this fix:
+https://github.com/raspberrypi/linux/issues/2810#issuecomment-456787673
+```
+sudo sysctl -w vm.dirty_ratio=10
+sudo sysctl -w vm.dirty_background_ratio=5
+sudo sysctl -p
+```
+
 ## Pictures
 
 ![Image 1](pix/2020-04-08-011619_1280x800_scrot.png?raw=true)
